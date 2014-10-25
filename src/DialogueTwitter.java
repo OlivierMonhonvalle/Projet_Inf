@@ -1,0 +1,31 @@
+import twitter4j.Trends;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+
+public class DialogueTwitter {
+
+	private Twitter twitter = new TwitterFactory().getInstance();
+
+	// Permet de nous identifier à notre compte Twitter développeur pour avoir accès aux données de Twitter 
+	public void identification() {
+		twitter.setOAuthConsumer("hoCmn6JJf1O0G8OrrfEhgNSVd",
+				"XqRPkpG1fEJMBllBYt63YjdygEAFbt8DC3ZWCpAUzG9gVLXB1j");
+		twitter.setOAuthAccessToken(new AccessToken(
+				"2867128532-IqEpOMHnSXipHDNvSWZsETgqLE87TrKRsHmWSAQ",
+				"pqao9pf7RIZDzW2lgFk2Kvf8zDnCcTUhHbdVoq22YrIDz"));
+	}
+
+	// Permet de récupérer et d'afficher les 10 Trends Topics
+	public void recupTends(int position) {
+		try {
+			Trends trends = twitter.getPlaceTrends(position);
+			for (int i = 0; i < trends.getTrends().length; i++) {
+				System.out.println(trends.getTrends()[i].getName());
+			}
+		} catch (TwitterException e) {
+			System.out.println("Erreur");
+		}
+	}
+}
