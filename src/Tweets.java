@@ -5,5 +5,6 @@ public class Tweets {
 		DialogueTwitter d = new DialogueTwitter();
 		d.identification();
 		d.recupTends(1);
+		System.out.println("Bonjour");
 	}
 }
