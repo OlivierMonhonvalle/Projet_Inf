@@ -1,4 +1,3 @@
-import twitter4j.Trends;
 
 
 public class Tweets {

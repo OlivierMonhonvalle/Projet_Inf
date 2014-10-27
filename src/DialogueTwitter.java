@@ -6,10 +6,13 @@ import twitter4j.auth.AccessToken;
 
 public class DialogueTwitter {
 
-	private Twitter twitter = new TwitterFactory().getInstance();
+	private Twitter twitter;
+	private Trends trends;
 
-	// Permet de nous identifier à notre compte Twitter développeur pour avoir accès aux données de Twitter 
-	public void identification() {
+	// Permet de nous identifier à notre compte Twitter développeur pour avoir
+	// accès aux données de Twitter
+	public DialogueTwitter() {
+		twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer("hoCmn6JJf1O0G8OrrfEhgNSVd",
 				"XqRPkpG1fEJMBllBYt63YjdygEAFbt8DC3ZWCpAUzG9gVLXB1j");
 		twitter.setOAuthAccessToken(new AccessToken(
@@ -18,16 +21,19 @@ public class DialogueTwitter {
 	}
 
 	// Permet de récupérer et d'afficher les 10 Trends Topics
-	public Trends recupTends(int position) {
+	public void recupTends(int position) {
 		try {
-			Trends trends = twitter.getPlaceTrends(position);
+			trends = twitter.getPlaceTrends(position);
 			for (int i = 0; i < trends.getTrends().length; i++) {
 				System.out.println(trends.getTrends()[i].getName());
 			}
-			return trends;
 		} catch (TwitterException e) {
 			System.out.println("Erreur");
-			return null;
-		}	
+		}
 	}
+
+	public Trends getTrendsTopics() {
+		return trends;
+	}
+
 }

@@ -37,12 +37,21 @@ public class IHM extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTrendsTopics;
-	private int localisation = 1;
-	private Trends tt;
+	private DialogueTwitter d;
 
 
 	public IHM() {
-		
+		d = new DialogueTwitter();
+		initfenetre();
+		titre();
+		JTextArea textArea = new JTextArea();
+		bMonde(textArea);
+		bFrance(textArea);
+		initTextArea(textArea);
+	}
+	
+	
+	public void initfenetre(){
 		setTitle("Twing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -50,8 +59,9 @@ public class IHM extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
+	}
+	
+	public void titre(){
 		txtTrendsTopics = new JTextField();
 		txtTrendsTopics.setBackground(Color.LIGHT_GRAY);
 		txtTrendsTopics.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
@@ -62,34 +72,29 @@ public class IHM extends JFrame {
 		txtTrendsTopics.setBounds(31, 13, 116, 22);
 		contentPane.add(txtTrendsTopics);
 		txtTrendsTopics.setColumns(10);
-		InterractionTwitter();
-		bMonde();
-		bFrance();
-		afficheurTT(tt);
 	}
 	
-	public void InterractionTwitter(){
-		DialogueTwitter d = new DialogueTwitter();
-		d.identification();
-		tt = d.recupTends(localisation);
-	}
 	
-	public void bMonde(){
+	public void bMonde(JTextArea textArea){
 		JButton btnNewButton = new JButton("Monde");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				localisation = 1;
+				int localisation = 1;
+				initTextArea(textArea);
+				afficheurTT(textArea, localisation);
 			}
 		});
 		btnNewButton.setBounds(170, 13, 97, 25);
 		contentPane.add(btnNewButton);
 	}
 	
-	public void bFrance(){
+	public void bFrance(JTextArea textArea){
 		JButton btnFrance = new JButton("France");
 		btnFrance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				localisation =  23424819;
+				int localisation =  23424819;
+				initTextArea(textArea);
+				afficheurTT(textArea, localisation);
 			}
 		});
 		
@@ -97,17 +102,20 @@ public class IHM extends JFrame {
 		contentPane.add(btnFrance);
 	}
 	
-	public void afficheurTT(Trends tt){
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBounds(41, 47, 366, 193);
-		for (int i = 0; i < tt.getTrends().length; i++) {
-			textArea.append(tt.getTrends()[i].getName());
+	public void afficheurTT(JTextArea textArea, int localisation ){
+		d.recupTends(localisation);
+		for (int i = 0; i < d.getTrendsTopics().getTrends().length; i++) {
+			textArea.append(d.getTrendsTopics().getTrends()[i].getName());
 			textArea.append("\n");
 		}
-		contentPane.add(textArea);
 	}
 	
+	 public void initTextArea(JTextArea textArea){
+		textArea.setEditable(false);
+		textArea.setBounds(41, 47, 366, 193);
+		textArea.setText("");
+		contentPane.add(textArea);
+	 }
 	
 }
 
