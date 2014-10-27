@@ -1,10 +1,10 @@
+import twitter4j.Trends;
+
 
 public class Tweets {
 
 	public static void main(String[] args) {
-		DialogueTwitter d = new DialogueTwitter();
-		d.identification();
-		d.recupTends(1);
-		System.out.println("Bonjour");
+		IHM fenetre = new IHM();
+		fenetre.setVisible(true);
 	}
 }

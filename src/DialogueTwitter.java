@@ -18,14 +18,16 @@ public class DialogueTwitter {
 	}
 
 	// Permet de récupérer et d'afficher les 10 Trends Topics
-	public void recupTends(int position) {
+	public Trends recupTends(int position) {
 		try {
 			Trends trends = twitter.getPlaceTrends(position);
 			for (int i = 0; i < trends.getTrends().length; i++) {
 				System.out.println(trends.getTrends()[i].getName());
 			}
+			return trends;
 		} catch (TwitterException e) {
 			System.out.println("Erreur");
-		}
+			return null;
+		}	
 	}
 }
